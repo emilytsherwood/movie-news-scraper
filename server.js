@@ -16,10 +16,18 @@ db.once('open', function() {
     console.log("Mongoose is connected!")
 });
 
+// Setting up the schema
+var movieSchema = mongoose.Schema ({
+    title: String,
+    link: String
+});
+
+// Compiling Schema into a Model
+var News = mongoose.model('News', movieSchema);
 
 var app = express();
 var PORT = process.env.PORT || 3000;
-
+// Using the static directory
 app.use(express.static(process.cwd() + "/public"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,3 +41,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 // Using that engine
 app.set("view engine", "handlebars");
 
+// Listening on port
+app.listen(3000, function() {
+    console.log("App listening on Port 3000");
+})
