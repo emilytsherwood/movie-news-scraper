@@ -46,7 +46,20 @@ db.once('open', function() {
     console.log("Mongoose is connected!")
 });
 
+// Routes
 
+// GET request to scrape the Screen Rant Website
+app.get("/scrape", function(req, res) {
+    // Grabbing the body of the html with this request
+    request("http://screenrant.com/movie-news/", function(error, response, html) {
+        // Loading that body into cheerio, $ is a shorthand selector
+        var $ = cheerio.load(html);
+        // Grabbing all the headlines from the website
+        $("article h2").each(function(i, element) {
+            var result = {};//CONTINUE...
+        })
+    })
+})
 
 
 
