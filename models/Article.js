@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 
 // Setting up the schema
 var Schema = mongoose.Schema;
-var movieSchema =  new Schema ({
+var MovieSchema =  new Schema ({
     title: {
         type: String,
         required: true
@@ -20,8 +20,8 @@ var movieSchema =  new Schema ({
     }
 });
 
-// Compiling movieSchema into a Article Model
-var Article = mongoose.model('Article', movieSchema);
+// Compiling movieSchema into an Article Model
+var Article = mongoose.model('Article', MovieSchema);
 
 // Exporting the model
 module.exports = Article;
