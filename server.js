@@ -3,13 +3,39 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 var mongoose = require("mongoose");
+var logger = require("morgan");
 var methodOverride = require("method-override");
+// Requiring the scraping tools
 var request = require("request");
 var cheerio = require("cheerio");
 // Requiring the Comment and Article models
 var Comment = require("./models/Comment.js");
 var Article = require("./models/Article.js");
 
+var Promise = require("bluebird");
+
+mongoose.promise = Promise;
+
+// Setting up Express
+var app = express();
+
+app.use(logger("dev"));
+app.use(bodyParser.urlencoded({ extended: false }));
+
+var PORT = process.env.PORT || 3000;
+
+// Using the static directory
+app.use(express.static("public"));
+
+// Telling the app what engine we are going to use
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+// Using that engine
+app.set("view engine", "handlebars");
+
+// Listening on port
+app.listen(3000, function() {
+    console.log("App listening on Port 3000");
+})
 
 // Database connection - Setting up the default mongoose connection
 mongoose.connect('mongodb://localhost/movienews_db');
@@ -21,35 +47,8 @@ db.once('open', function() {
 });
 
 
-// Setting up the schema
-var Schema = mongoose.Schema;
-var movieSchema =  new Schema ({
-    title: String,
-    link: String
-});
 
-// Compiling Schema into a Model
-var News = mongoose.model('News', movieSchema);
 
-var app = express();
-var PORT = process.env.PORT || 3000;
-// Using the static directory
-app.use(express.static(process.cwd() + "/public"));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use(methodOverride("_method"));
-
-app.use('/', routes);
-
-// Telling the app what engine we are going to use
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-// Using that engine
-app.set("view engine", "handlebars");
-
-// Listening on port
-app.listen(3000, function() {
-    console.log("App listening on Port 3000");
-})
 
 
