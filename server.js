@@ -6,6 +6,10 @@ var mongoose = require("mongoose");
 var methodOverride = require("method-override");
 var request = require("request");
 var cheerio = require("cheerio");
+// Requiring the Comment and Article models
+var Comment = require("./models/Comment.js");
+var Article = require("./models/Article.js");
+
 
 // Database connection - Setting up the default mongoose connection
 mongoose.connect('mongodb://localhost/movienews_db');
@@ -16,8 +20,10 @@ db.once('open', function() {
     console.log("Mongoose is connected!")
 });
 
+
 // Setting up the schema
-var movieSchema = mongoose.Schema ({
+var Schema = mongoose.Schema;
+var movieSchema =  new Schema ({
     title: String,
     link: String
 });
@@ -45,3 +51,5 @@ app.set("view engine", "handlebars");
 app.listen(3000, function() {
     console.log("App listening on Port 3000");
 })
+
+
