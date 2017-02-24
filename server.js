@@ -32,10 +32,6 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 // Using that engine
 app.set("view engine", "handlebars");
 
-// Listening on port
-app.listen(3000, function() {
-    console.log("App listening on Port 3000");
-})
 
 // Database connection - Setting up the default mongoose connection
 mongoose.connect('mongodb://localhost/movienews_db');
@@ -97,6 +93,51 @@ app.get("/articles", function(req, res) {
     });
 });
 
+// Grabbing a movie article by it's ObjectId
+app.get("/articles/:id,", function(req, res) {
+    Article.findOne({ "_id": req.params.id })
+    .populate("comment")
+    .exec(function(error, doc) {
+        // errors
+        if (error) {
+            console.log(error);
+        }
+        else {
+            res.json(doc);
+        }
+    });
+});
+
+// Creating a comment or replacing a comment
+app.post("/articles/:id", function(req, res) {
+    // Creating a new comment and pssing the req.body to the entry
+    var newComment = new newComment(req.body);
+    // Save new comment in the database
+    newComment.save(function(error, doc) {
+        // errors
+        if (error) {
+            console.log(error);
+        }
+        else {
+            Article.findOneAndUpdate({ "_id": req.params.id }, { "comment": doc._id })
+            // Executing the above query
+            .exec(function(err, doc) {
+                // errors
+                if(err) {
+                    console.log(err);
+                }
+                else {
+                    res.send(doc);
+                }
+            });
+        }
+    });
+});
+
+// Listening on port
+app.listen(3000, function() {
+    console.log("App listening on Port 3000");
+});
 
 
 
