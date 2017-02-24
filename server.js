@@ -85,8 +85,18 @@ app.get("/scrape", function(req, res) {
 // Grabbing the latest articles that were scraped from mongodb
 app.get("/articles", function(req, res) {
     // Grabbing every doc in the Articles array
-    Article.find{}
-})
+    Article.find({}, function(error, doc) {
+        // errors
+        if (error) {
+            console.log(error);
+        }
+        // If no error, send the doc to browser as a json object
+        else {
+            res.json(doc);
+        }
+    });
+});
+
 
 
 
