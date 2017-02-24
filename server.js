@@ -21,11 +21,13 @@ var app = express();
 
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 var PORT = process.env.PORT || 3000;
 
 // Using the static directory
-app.use(express.static("public"));
+app.use(express.static(process.cwd() + "/public"));
 
 // Telling the app what engine we are going to use
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
@@ -43,6 +45,9 @@ db.once('open', function() {
 });
 
 // Routes
+// app.get("/"), function(req, res) {
+//     console.log("Home Page")
+// };
 
 // GET request to scrape the Screen Rant Website
 app.get("/scrape", function(req, res) {
