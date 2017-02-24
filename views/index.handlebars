@@ -1,21 +1,38 @@
 {{!--Setting up header--}}
 <div class="container">
    <div class="jumbotron">
-      <center>
-         <h1>Movie News: At the Click of a Button</h1>
-      </center>
-      <center>
-         <p>Get your latest movie news without scrolling or searching; just click the button below!</p>
-      </center>
-      <center>
-         <p><a class="btn btn-primary btn-lg">Scrape the News!</a></p>
-      </center>
-   </div>
+   <center>
+      <h1>Movie News: At the Click of a Button</h1>
+   </center>
+   <center>
+      <p>Get your latest movie news without scrolling or searching; just click the button below!</p>
+   </center>
+   <center>
+      <p><a class="btn btn-primary btn-lg">Scrape the News!</a></p>
+   </center>
+</div>
 </div>
 <div class="container">
    <center><a href="#" class="btn btn-info">Home</a>
       <a href="#" class="btn btn-info">Saved Articles</a>
    </center>
+</div>
+{{!--Article Population--}}
+<div class="container">
+   <div class="row">
+      <div class="col-md-12">
+         <h2>Articles</h2>
+         <p>The Latest Movie News!</p>
+         <div class="panel panel-default">
+            {{#each articles}}
+            <div class="panel-heading">Lastest Articles:</div>
+            <div class="panel-body">
+               <a href="{{link}}">{{title}}</a>
+            </div>
+            {{/each}}
+         </div>
+      </div>
+   </div>
 </div>
 </body>
 </html>
