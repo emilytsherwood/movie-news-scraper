@@ -56,9 +56,36 @@ app.get("/scrape", function(req, res) {
         var $ = cheerio.load(html);
         // Grabbing all the headlines from the website
         $("article h2").each(function(i, element) {
-            var result = {};//CONTINUE...
-        })
-    })
+            // Empty result object saved
+            var result = {};
+            // Adding the text and href of every link, save them as properties of the result
+            result.title = $(this).children("a").text();
+            result.link = $(this).children("a").attr("href");
+            // Using the Article model, creating a new entry
+            // The result object will get passed to the entry (title and link since they are properties of result obj. as shown above)
+            var entry = new Article(result);
+
+            // Saving that new entry to the database
+            entry.save(function(err, doc) {
+                // errors
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(doc);
+                }
+            });
+        });
+    });
+
+    // Tell browser that the scraping is complete
+    res.send("Scrape Complete!");
+});
+
+// Grabbing the latest articles that were scraped from mongodb
+app.get("/articles", function(req, res) {
+    // Grabbing every doc in the Articles array
+    Article.find{}
 })
 
 
