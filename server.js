@@ -45,9 +45,6 @@ db.once('open', function() {
 });
 
 // Routes
-// app.get("/"), function(req, res) {
-//     console.log("Home Page")
-// };
 
 // GET request to scrape the Screen Rant Website
 app.get("/scrape", function(req, res) {
