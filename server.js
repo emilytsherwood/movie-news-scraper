@@ -46,6 +46,10 @@ db.once('open', function() {
 
 // Routes
 
+app.get("/", function(req, res) {
+    res.render("index.handlebars")
+});
+
 // GET request to scrape the Screen Rant Website
 app.get("/scrape", function(req, res) {
     // Grabbing the body of the html with this request
