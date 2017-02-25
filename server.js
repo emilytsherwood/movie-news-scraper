@@ -12,7 +12,7 @@ var cheerio = require("cheerio");
 var Comment = require("./models/Comment.js");
 var Article = require("./models/Article.js");
 
-var Promise = require("bluebird");
+var Promise = require("request-promise");
 
 mongoose.promise = Promise;
 
