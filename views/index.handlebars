@@ -9,7 +9,7 @@
    </center>
    <div class="form-group">
    <center>
-      <button type="submit" class="btn btn-primary btn-lg">Scrape the News!</button>
+      <a href="/scrape" type="submit" class="btn btn-primary btn-lg">Scrape the News!</a>
    </center>
    </div>
 </div>
@@ -28,7 +28,7 @@
          <div class="panel panel-default">
             {{#each articles}}
             <div class="panel-heading">Lastest Articles:</div>
-            <div class="panel-body">
+            <div class="panel-body articles">
                <a href="{{link}}">{{title}}</a>
             </div>
             {{/each}}
