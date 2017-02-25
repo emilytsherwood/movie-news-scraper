@@ -27,7 +27,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 var PORT = process.env.PORT || 3000;
 
 // Using the static directory
-app.use(express.static(process.cwd() + "/public"));
+app.use(express.static("public"));
 
 // Telling the app what engine we are going to use
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
@@ -47,7 +47,7 @@ db.once('open', function() {
 // Routes
 
 app.get("/", function(req, res) {
-    res.render("index.handlebars")
+    res.render("index")
 });
 
 // GET request to scrape the Screen Rant Website
